@@ -17,9 +17,10 @@ def build_model_name(options):
     algorithm = 'sg' if options['sg'] == 1 else 'cbow'
     mincount = options['min_count']
     epoch = options['iter']
+    negative = options['negative']
 
-    return 'size{}_window{}_{}_mincount{}_epoch{}'.format(
-        size, window, algorithm, mincount, epoch)
+    return '{}_size{}_window{}_negative{}_mincount{}_epoch{}'.format(
+        algorithm, size, window, negative, mincount, epoch)
 
 
 if __name__ == '__main__':
