@@ -14,13 +14,14 @@ MODEL_DIR = './models'
 def build_model_name(options):
     size = options['size']
     window = options['window']
-    algorithm = 'sg' if options['sg'] == 1 else 'cbow'
+    arch = 'sg' if options['sg'] == 1 else 'cbow'
+    algorithm = 'hs' if options['hs'] == 1 else 'negative'
     mincount = options['min_count']
     epoch = options['iter']
-    negative = options['negative']
+    negative = options['negative'] if algorithm != 'hs' else ''
 
-    return '{}_size{}_window{}_negative{}_mincount{}_epoch{}'.format(
-        algorithm, size, window, negative, mincount, epoch)
+    return '{}_size{}_window{}_{}{}_mincount{}_epoch{}'.format(
+        arch, size, window, algorithm, negative, mincount, epoch)
 
 
 if __name__ == '__main__':
@@ -35,6 +36,7 @@ if __name__ == '__main__':
         'negative': [10, 15, 20],
         'sample': [0.001],
         'sg': [0],
+        'hs': [1],
         'min_count': [7],
         'workers': [cpu_count],
         'iter': [5]
